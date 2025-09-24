@@ -1,0 +1,159 @@
+body, html {
+  margin: 0;
+  position: fixed;
+  overflow: hidden;
+}
+
+.timer {
+  box-sizing: border-box;
+  z-index: 3;
+  border-radius: 0;
+  width: 86px;
+  height: 60px;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+}
+
+.timer img {
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: block;
+}
+
+.timer .countdowntimer {
+  box-sizing: border-box;
+  z-index: 4;
+  white-space: pre-wrap;
+  color: red;
+  border-radius: 0;
+  width: 200px;
+  height: 45px;
+  padding-bottom: 0;
+  font-family: Lato;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  position: absolute;
+  top: 21px;
+  left: 20px;
+  overflow: visible;
+}
+
+#info {
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+}
+
+#intro {
+  color: #fff;
+  z-index: 999;
+  background-color: #000000b3;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 40px;
+  display: flex;
+  position: fixed;
+}
+
+#intro img {
+  width: 30%;
+  height: auto;
+}
+
+#start {
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  margin-top: 25px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  transition: box-shadow .2s, transform .1s;
+  display: inline-block;
+}
+
+#intro.hidden {
+  display: none;
+}
+
+#loading-screen {
+  z-index: 1000;
+  opacity: 1;
+  background-color: #000;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: opacity .5s;
+  display: flex;
+  position: fixed;
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+}
+
+.spinner {
+  text-align: center;
+  width: 50px;
+  height: 40px;
+  margin: 100px auto;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #fff;
+  width: 6px;
+  height: 100%;
+  animation: 1.2s ease-in-out infinite sk-stretchdelay;
+  display: inline-block;
+}
+
+.spinner .rect2 {
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  animation-delay: -1s;
+}
+
+.spinner .rect4 {
+  animation-delay: -.9s;
+}
+
+.spinner .rect5 {
+  animation-delay: -.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(.4);
+  }
+
+  20% {
+    -webkit-transform: scaleY(1);
+  }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(.4);
+  }
+
+  20% {
+    transform: scaleY(1);
+  }
+}
+/*# sourceMappingURL=squid-sof.94c57eb9.css.map */
