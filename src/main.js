@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 import * as YUKA from 'yuka';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 // import { initializeApp } from 'firebase/app';
@@ -34,8 +35,16 @@ class SquidGame {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.shadowMap.enabled = true;
     this.aspect = window.innerWidth / window.innerHeight;
+
+    // Setup CSS2D renderer for HTML labels in 3D space
+    this.labelRenderer = new CSS2DRenderer();
+    this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    this.labelRenderer.domElement.style.position = 'absolute';
+    this.labelRenderer.domElement.style.top = '0px';
+
     const container = document.createElement('div');
     container.appendChild(this.renderer.domElement);
+    container.appendChild(this.labelRenderer.domElement);
     document.body.appendChild(container);
 
     this.scene = new THREE.Scene();
@@ -97,6 +106,8 @@ class SquidGame {
       'click',
       () => {
         const intro = document.getElementById('intro');
+        const textMode = document.getElementById('select-mode').value
+        this.mode = textMode;
         intro.classList.add('hidden');
         this.startGame();
       },
@@ -119,9 +130,11 @@ class SquidGame {
     let minutes;
     let seconds;
     if (this.mode !== 'hard') {
+      timer = 59
       soundManager.song.play();
     }
     this.doll.stateMachine.changeTo(DOLL_STATES.GREEN_LIGHT);
+    document.getElementById("text-mode").textContent = "MODE :" + this.mode.toUpperCase();
 
     const interval = setInterval(() => {
       minutes = parseInt(timer / 60, 10);
@@ -147,6 +160,7 @@ class SquidGame {
   onGameEnd = () => {
     const intro = document.getElementById('intro');
     const startButton = document.getElementById('start');
+    document.getElementById("select-mode").hidden = true;
     soundManager.running.stop();
     const { currentState } = this.player.stateMachine;
     const currentStateId = currentState.id;
@@ -155,10 +169,7 @@ class SquidGame {
     } else {
       startButton.innerText = 'You Win';
     }
-    startButton.addEventListener('click', () => {
-      const currentURL = window.location.pathname + window.location.search + window.location.hash;
-      window.location.href = currentURL;
-    }, false);
+    startButton.disabled = true
     intro.classList.remove('hidden');
   };
 
@@ -181,6 +192,10 @@ class SquidGame {
       this.addNpcPlayers(),
       soundManager.loadSounds(),
     ]);
+
+    // Create player name label after all NPCs are created to avoid cloning issues
+    this.createPlayerNameLabel();
+
     this.onFinishedLoading();
   }
 
@@ -328,11 +343,35 @@ class SquidGame {
       animations.get(ANIMATION_DEAD_ARRAY)[getRandomInt(0, 3)],
     );
     animations.delete(ANIMATION_DEAD_ARRAY);
-    this.player = new Player(mixer, animations, this.onGameEnd);
+    this.player = new Player(mixer, animations, this.onGameEnd, "Bạn đây nè, Chúc may mắn");
     this.player.setRenderComponent(renderComponent, this.sync);
     this.player.position.set(0, 0, 50);
     this.entityManager.add(this.player);
     this.initControls();
+
+    // Don't create the name label here - we'll create it after NPCs are added
+  }
+
+  createPlayerNameLabel() {
+    const playerNameDiv = document.createElement('div');
+    playerNameDiv.className = 'player-name-label';
+    playerNameDiv.textContent = this.player.name;
+    playerNameDiv.style.color = 'white';
+    playerNameDiv.style.fontFamily = 'Lato, Arial, sans-serif';
+    playerNameDiv.style.fontSize = '16px';
+    playerNameDiv.style.fontWeight = 'bold';
+    playerNameDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    playerNameDiv.style.padding = '4px 8px';
+    playerNameDiv.style.borderRadius = '4px';
+    playerNameDiv.style.textAlign = 'center';
+    playerNameDiv.style.pointerEvents = 'none';
+
+    const playerNameLabel = new CSS2DObject(playerNameDiv);
+    playerNameLabel.position.set(0, 2.5, 0); // Position above player's head
+
+    // Add the label to the player's render component
+    this.player._renderComponent.add(playerNameLabel);
+    this.playerNameLabel = playerNameLabel;
   }
 
   loadPlayerModel() {
@@ -514,6 +553,7 @@ class SquidGame {
       this.controls.update(delta);
       this.entityManager.update(delta);
       this.renderer.render(this.scene, this.camera);
+      this.labelRenderer.render(this.scene, this.camera);
     });
   }
 
@@ -524,6 +564,7 @@ class SquidGame {
       this.camera.aspect = newAspect;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
     }
   }
 }

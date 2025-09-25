@@ -7,11 +7,12 @@ import {
 } from './states';
 
 class Player extends Vehicle {
-  constructor(mixer, animations, onHit) {
+  constructor(mixer, animations, onHit, name) {
     super();
     this.onHit = onHit;
     this.mixer = mixer;
     this.animations = animations;
+    this.name = name;
 
     this.stateMachine = new StateMachine(this);
     this.stateMachine.add(PLAYER_STATES.IDLE, new IdleState());
@@ -24,7 +25,7 @@ class Player extends Vehicle {
 
     this.boundingRadius = 0.6;
     this.npc = false;
-    this.maxSpeed = 2;
+    this.maxSpeed = 5;
     this.updateOrientation = true;
   }
 

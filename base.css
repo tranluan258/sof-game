@@ -5,7 +5,6 @@ body, html {
 }
 
 .timer {
-    width: 86px;
     left: 50px;
     position: absolute;
     box-sizing: border-box;
@@ -38,6 +37,14 @@ body, html {
     color: rgb(255, 0, 0);
     line-height: 1;
     border-radius: 0px;
+}
+
+.timer #text-mode {
+    margin-top: 10px;
+    font-family: Lato;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
 }
 
 #info {
@@ -154,4 +161,46 @@ body, html {
              transform: scaleY(1.0);
              -webkit-transform: scaleY(1.0);
          }
+}
+
+
+/* Wrap label + select in a row */
+.mode-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;        /* space between label and select */
+  margin-top: 12px;
+}
+
+/* Style the label */
+.mode-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* Style the select (same as before) */
+#select-mode {
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#select-mode:hover {
+  border-color: #888;
+}
+
+#select-mode:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+#select-mode::-ms-expand {
+  display: none; /* removes default arrow in IE */
 }
