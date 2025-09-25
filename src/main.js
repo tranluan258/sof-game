@@ -36,15 +36,15 @@ class SquidGame {
     this.renderer.shadowMap.enabled = true;
     this.aspect = window.innerWidth / window.innerHeight;
 
-    // Setup CSS2D renderer for HTML labels in 3D space
-    this.labelRenderer = new CSS2DRenderer();
-    this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
-    this.labelRenderer.domElement.style.position = 'absolute';
-    this.labelRenderer.domElement.style.top = '0px';
+    // // Setup CSS2D renderer for HTML labels in 3D space
+    // this.labelRenderer = new CSS2DRenderer();
+    // this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    // this.labelRenderer.domElement.style.position = 'absolute';
+    // this.labelRenderer.domElement.style.top = '0px';
 
     const container = document.createElement('div');
     container.appendChild(this.renderer.domElement);
-    container.appendChild(this.labelRenderer.domElement);
+    // container.appendChild(this.labelRenderer.domElement);
     document.body.appendChild(container);
 
     this.scene = new THREE.Scene();
