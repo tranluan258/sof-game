@@ -22,8 +22,8 @@ body, html {
     border-radius: 0px;
 }
 .timer .countdowntimer {
-    width: 200px;
-    left: 20px;
+    width: 120px;
+    left: 40px;
     position: absolute;
     box-sizing: border-box;
     z-index: 4;
