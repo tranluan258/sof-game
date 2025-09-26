@@ -8,6 +8,7 @@ body, html {
   box-sizing: border-box;
   z-index: 3;
   border-radius: 0;
+  width: 120px;
   height: 60px;
   position: absolute;
   top: 10px;
@@ -28,7 +29,7 @@ body, html {
   white-space: pre-wrap;
   color: red;
   border-radius: 0;
-  width: 200px;
+  width: 120px;
   height: 45px;
   padding-bottom: 0;
   font-family: Lato;
@@ -37,7 +38,7 @@ body, html {
   line-height: 1;
   position: absolute;
   top: 21px;
-  left: 20px;
+  left: 40px;
   overflow: visible;
 }
 
@@ -200,5 +201,21 @@ body, html {
 
 #select-mode::-ms-expand {
   display: none;
+}
+
+#result {
+  color: #fff;
+  visibility: hidden;
+  background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  margin-top: 25px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  transition: box-shadow .2s, transform .1s;
+  display: inline-block;
 }
 /*# sourceMappingURL=Game.94c57eb9.css.map */

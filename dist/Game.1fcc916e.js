@@ -793,14 +793,15 @@ class SquidGame {
     }
     onGameEnd = ()=>{
         const intro = document.getElementById('intro');
-        const startButton = document.getElementById('start');
+        document.getElementById('start').style.visibility = 'hidden';
         document.getElementById("select-mode").hidden = true;
+        const resultText = document.getElementById("result");
+        resultText.style.visibility = 'visible';
         (0, _soundManager.soundManager).running.stop();
         const { currentState } = this.player.stateMachine;
         const currentStateId = currentState.id;
-        if (currentStateId === (0, _states.PLAYER_STATES).DEAD) startButton.innerText = 'You Lose';
-        else startButton.innerText = 'You Win';
-        startButton.disabled = true;
+        if (currentStateId === (0, _states.PLAYER_STATES).DEAD) resultText.innerText = 'You Lose';
+        else resultText.innerText = 'You Win';
         intro.classList.remove('hidden');
     };
     addTriggers() {
@@ -1146,7 +1147,6 @@ class SquidGame {
             this.controls.update(delta);
             this.entityManager.update(delta);
             this.renderer.render(this.scene, this.camera);
-            this.labelRenderer.render(this.scene, this.camera);
         });
     }
     handleResize() {
@@ -1156,7 +1156,6 @@ class SquidGame {
             this.camera.aspect = newAspect;
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
-            this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
         }
     }
 }
